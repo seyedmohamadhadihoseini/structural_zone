@@ -7,6 +7,15 @@ double BodyAverageSize(int period, int shift)
     }
     return sum / period;
 }
+double CandleAverageSize(int period, int shift)
+{
+    double sum = 0;
+    for (int i = shift; i < shift + period; ++i)
+    {
+        sum += myAll(i);
+    }
+    return sum / period;
+}
 bool isHighest(int shift)
 {
     double high = myHigh(shift);
