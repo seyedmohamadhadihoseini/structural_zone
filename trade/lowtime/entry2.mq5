@@ -3,30 +3,49 @@ bool CheckEntry2(Zone &mainZone, int zoneZoneIndex)
     Zone_Zone zone_zone = AllZone_Zones.arr[zoneZoneIndex];
     bool isBullish = mainZone.isBullish;
     double price = isBullish ? myBid() : myAsk();
-    if (zone_zone.time[0] == myTime(0))
+
+    if (zone_zone.step[1] == 0)
     {
-        return false;
+        if (isBullish)
+            FindMin(mainZone, zoneZoneIndex, 1, 0);
+        else
+            FindMax(mainZone, zoneZoneIndex, 1, 0);
     }
-    if (zone_zone.step[0] == 0)
+    else if (zone_zone.step[1] == 1)
     {
-        FindMin(mainZone,zoneZoneIndex,0 ,0);
+        if (isBullish)
+            FindMax(mainZone, zoneZoneIndex, 1, 1);
+        else
+            FindMin(mainZone, zoneZoneIndex, 1, 1);
     }
-    else if (zone_zone.step[0] == 1)
+    else if (zone_zone.step[1] == 2)
     {
-        FindMax(mainZone,zoneZoneIndex,0, 1);
+        if (isBullish)
+            FindMin(mainZone, zoneZoneIndex, 1, 2);
+        else
+            FindMax(mainZone, zoneZoneIndex, 1, 2);
     }
-    else if (zone_zone.step[0] == 2)
+    else if (zone_zone.step[1] == 3)
     {
-        FindMin(mainZone,zoneZoneIndex,0, 2);
-    }
-    else if (zone_zone.step[0] == 3)
-    {
-        FindMax(mainZone,zoneZoneIndex,0, 3);
         Zone_Zone temp = AllZone_Zones.arr[zoneZoneIndex];
-        if (temp.values[0][0] > temp.values[0][2] && temp.values[0][3] > temp.values[0][1])
+        if (isBullish)
         {
-            if(price <= temp.values[0][1]){
-                return true;
+            if (temp.values[1][0] < temp.values[1][2] && temp.values[1][1] > mainZone.high)
+            {
+                if (price >= temp.values[1][1])
+                {
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            if (temp.values[1][0] > temp.values[1][2] && temp.values[1][1] < mainZone.low)
+            {
+                if (price <= temp.values[1][1])
+                {
+                    return true;
+                }
             }
         }
     }

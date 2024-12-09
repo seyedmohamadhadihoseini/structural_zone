@@ -5,9 +5,9 @@ public:
     string fromZoneId;
     string toZoneId;
     double values[3][5];
+    datetime time[3];
     int step[3];
     int length[3];
-    datetime time[3];
     bool isEnable;
 
     Zone_Zone(/* args */);
@@ -21,6 +21,7 @@ Zone_Zone::Zone_Zone(/* args */)
     {
         step[i] = 0;
         length[i] = 0;
+        time[i] =0;
     }
     for (int i = 0; i < 5; i++)
     {

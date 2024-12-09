@@ -27,7 +27,7 @@ void Candle::Init(int shift)
     time = myTime(shift);
     isLowest = (myLow(shift) < myLow(shift + 1)) && (myLow(shift) < myLow(shift - 1));
     isHighest = (myHigh(shift) > myHigh(shift + 1)) && (myHigh(shift) > myHigh(shift - 1));
-    int x = 3;
+    int x = 1;
     for(int i=shift-x;i<=shift+x;++i){
         if(myLow(i)< low){
             isLowest = false;
