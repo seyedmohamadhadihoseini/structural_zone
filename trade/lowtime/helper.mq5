@@ -12,7 +12,7 @@ void FindMin(Zone &mainZone, int zoneZoneIndex, int entryIndex, int valueIndex)
 
         if (preValue != newValue)
         {
-            zone_zone.time[entryIndex] = myTime(0, lowTimeframe);
+            AllZone_Zones.arr[zoneZoneIndex].time[entryIndex] = myTime(0, lowTimeframe);
         }
     }
     else if ((isBullish && price > mainZone.high) || (!isBullish && price < mainZone.low))
@@ -41,7 +41,7 @@ void FindMax(Zone &mainZone, int zoneZoneIndex, int entryIndex, int valueIndex)
 
         if (newVal != preVal)
         {
-            zone_zone.time[entryIndex] = myTime(0, lowTimeframe);
+            AllZone_Zones.arr[zoneZoneIndex].time[entryIndex] = myTime(0, lowTimeframe);
         }
     }
     else if ((isBullish && price < mainZone.high) || (!isBullish && price > mainZone.low))

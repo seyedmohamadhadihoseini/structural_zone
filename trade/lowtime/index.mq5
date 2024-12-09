@@ -2,7 +2,7 @@
 #include "./entry1.mq5";
 #include "./entry2.mq5";
 #include "./entry3.mq5";
-bool isOccurSetupInLowTime(Zone &liquid, Zone &mainZone)
+bool isOccurSetupInLowTime(Zone &liquid, Zone &mainZone,datetime crossTime)
 {
     int zoneZoneIndex = AllZone_Zones.GetIndex(liquid.id, mainZone.id);
     if (zoneZoneIndex == -1)
@@ -15,7 +15,7 @@ bool isOccurSetupInLowTime(Zone &liquid, Zone &mainZone)
         }
     }
 
-    bool result = CheckEntry1(mainZone,zoneZoneIndex);
+    bool result = CheckEntry1(mainZone,zoneZoneIndex) || CheckEntry2(mainZone,zoneZoneIndex) || CheckEntry3(mainZone,crossTime); 
     if (result == true)
     {
         Print("you did it");

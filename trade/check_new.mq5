@@ -39,7 +39,7 @@ bool CheckForNewTradeAndTradeIt(int shift)
             Zone mZone;
             if (findNearMainZones(zone.isBullish ? myBid() : myAsk(), zone, mZone, shift))
             {
-                if (isOccurSetupInLowTime(zone, mZone))
+                if (isOccurSetupInLowTime(zone, mZone,zone.crossTime))
                 {
                     Print("i want to take trader");
                     int cmd = 1;
