@@ -27,11 +27,12 @@ input ENUM_TIMEFRAMES lowTimeframe = PERIOD_M5;
 input double trade_volume = 0.01;
 input int trade_tp_pip = 10;
 ZoneArr AllZones;
+Zone_ZoneArr AllZone_Zones;
 int FirstZoneId = 0;
 int zoneInInitCount = 0;
 int OnInit()
 {
-
+  MathSrand(GetTickCount());
   Zone initZone;
   initZone.Init(init_high_zone, init_low_zone, init_zone_isBullish, init_date, true);
   initZone.DrawZone(init_date, myTime(findIndexOfDate(init_date) - 5));

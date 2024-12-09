@@ -10,12 +10,13 @@ bool CheckForNewTradeAndTradeIt(int shift)
         Zone zone = AllZones.arr[i];
         if (zone.step == 0)
         {
-            if(zone.time == myTime(shift)){
+            if (zone.time == myTime(shift))
+            {
                 continue;
             }
             double xHigh = myHigh(0);
-            double xLow  = myLow(shift);
-            double x = iHigh(Symbol(),Period(),0);
+            double xLow = myLow(shift);
+            double x = iHigh(Symbol(), Period(), 0);
             bool isCrossedZone = zone.IsCrossed(xHigh, xLow);
 
             if (isCrossedZone)
@@ -36,10 +37,9 @@ bool CheckForNewTradeAndTradeIt(int shift)
                 }
             }
             Zone mZone;
-            if (findNearMainZones(zone.isBullish?myBid():myAsk(), zone, mZone, shift))
+            if (findNearMainZones(zone.isBullish ? myBid() : myAsk(), zone, mZone, shift))
             {
-                Print("i am here the zone :",mZone.time);
-                if (true ||isOccurSetupInLowTime(shift, zone.crossTime, mZone))
+                if (isOccurSetupInLowTime(zone, mZone))
                 {
                     Print("i want to take trader");
                     int cmd = 1;

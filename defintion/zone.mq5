@@ -40,12 +40,13 @@ void Zone::Init(double _high, double _low, bool _isBullish, datetime _time, bool
     time = _time;
     isMainZone = _isMainZone;
     isEnable = true;
-    id = CreateRandomString();
+    id = CreateRandomString(40);
 }
 void Zone::Remove()
 {
     isEnable = false;
     RectangleDelete(0, "rec" + (string)id);
+    AllZone_Zones.Remove(id);
 }
 bool Zone::IsCrossed(double candleHigh, double candleLow)
 {
