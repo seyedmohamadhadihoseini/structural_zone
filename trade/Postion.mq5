@@ -11,6 +11,6 @@ bool OpenPosition(int cmd, double sl_price)
         price = myBid();
         tp = price - (trade_tp_pip * _Point * 10);
     }
-    myTrade.PositionOpen(_Symbol, tradeType, trade_volume, price,sl_price, tp , "ORDERD BY developerseyed@gmail.com");
+    myTrade.PositionOpen(_Symbol, tradeType, trade_volume, price, sl_price, tp, "ORDERD BY developerseyed@gmail.com");
     return true;
 }

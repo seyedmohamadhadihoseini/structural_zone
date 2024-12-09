@@ -9,7 +9,8 @@ public:
     int step[3];
     int length[3];
     bool isEnable;
-
+    datetime lastTime;
+    int count ;
     Zone_Zone(/* args */);
     ~Zone_Zone();
 };
@@ -17,6 +18,8 @@ public:
 Zone_Zone::Zone_Zone(/* args */)
 {
     isEnable = false;
+    count = 0;
+    lastTime = 0;
     for (int i = 0; i < 3; i++)
     {
         step[i] = 0;
