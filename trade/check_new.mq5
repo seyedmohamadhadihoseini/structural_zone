@@ -13,13 +13,13 @@ bool CheckForNewTradeAndTradeIt(int shift)
             if(zone.time == myTime(shift)){
                 continue;
             }
-            double xHigh = myHigh(shift);
+            double xHigh = myHigh(0);
             double xLow  = myLow(shift);
+            double x = iHigh(Symbol(),Period(),0);
             bool isCrossedZone = zone.IsCrossed(xHigh, xLow);
 
             if (isCrossedZone)
             {
-
                 AllZones.arr[i].step = 1;
                 AllZones.arr[i].firstCrossShift = myTime(shift);
             }
@@ -31,7 +31,7 @@ bool CheckForNewTradeAndTradeIt(int shift)
                 bool isReverseMarket = (zone.isBullish && mySide(shift + 1) > 0) || (!zone.isBullish && mySide(shift + 1) < 0);
                 if (isReverseMarket)
                 {
-                    AllZones.arr[i].isEnable = false;
+                    AllZones.arr[i].Remove();
                     continue;
                 }
             }
@@ -39,7 +39,7 @@ bool CheckForNewTradeAndTradeIt(int shift)
             if (findNearMainZones(zone.isBullish?myBid():myAsk(), zone, mZone, shift))
             {
                 Print("i am here the zone :",mZone.time);
-                if (isOccurSetupInLowTime(shift, zone.crossTime, mZone))
+                if (true ||isOccurSetupInLowTime(shift, zone.crossTime, mZone))
                 {
                     Print("i want to take trader");
                     int cmd = 1;
@@ -50,7 +50,7 @@ bool CheckForNewTradeAndTradeIt(int shift)
                         sl = mZone.low;
                     }
                     OpenPosition(cmd, sl);
-                    AllZones.arr[i].isEnable = false;
+                    AllZones.arr[i].Remove();
                 }
             }
         }
@@ -76,7 +76,7 @@ int findNearMainZones(double price, Zone &liquid, Zone &mainZone, int shift)
         Zone zone = AllZones.arr[i];
         if (zone.isEnable && zone.isMainZone && zone.isBullish == liquid.isBullish)
         {
-            if ((zone.isBullish && zone.high <= liquid.low) || ((!zone.isBullish) && zone.low >= liquid.high))
+            if ((zone.isBullish && zone.low <= liquid.low) || ((!zone.isBullish) && zone.high >= liquid.high))
             {
                 if (price <= zone.high && price >= zone.low)
                 {

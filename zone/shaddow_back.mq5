@@ -73,7 +73,7 @@ void HandleShadowBack(int shift)
                 zone.Init(myHigh(shift), myLow(shift + 1), false, myTime(shift), false);
                 zone.DrawZone(myTime(shift + 1), myTime(shift - 5));
                 AllZones.Set(zone);
-                zones.arr[i].isEnable = false;
+                zones.arr[i].Remove();
             }
         }
         else if (myHigh(shift + 1) > zones.arr[i].high && myLow(shift) < zones.arr[i].low)
@@ -82,7 +82,7 @@ void HandleShadowBack(int shift)
             zone.Init(myHigh(shift + 1), myLow(shift), true, myTime(shift), false);
             zone.DrawZone(myTime(shift + 1), myTime(shift - 5));
             AllZones.Set(zone);
-            zones.arr[i].isEnable = false;
+            zones.arr[i].Remove();
         }
     }
 }

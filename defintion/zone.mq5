@@ -1,3 +1,4 @@
+
 class Zone
 {
 private:
@@ -9,7 +10,8 @@ public:
     datetime time;
     bool isEnable;
     bool isMainZone;
-    int step ;
+    string id;
+    int step;
     int mainZoneIndex;
     datetime crossTime;
     datetime firstCrossShift;
@@ -17,6 +19,7 @@ public:
     void DrawZone(datetime time1, datetime time2);
     void Init(double _high, double _low, bool _isBullish, datetime _time, bool _isMainZone);
     bool IsCrossed(double candleHigh, double candleLow);
+    void Remove();
     ~Zone();
 };
 
@@ -26,7 +29,9 @@ Zone::Zone(/* args */)
     step = 0;
     mainZoneIndex = -1;
     crossTime = 0;
+    
 }
+
 void Zone::Init(double _high, double _low, bool _isBullish, datetime _time, bool _isMainZone)
 {
     high = _high;
@@ -35,19 +40,25 @@ void Zone::Init(double _high, double _low, bool _isBullish, datetime _time, bool
     time = _time;
     isMainZone = _isMainZone;
     isEnable = true;
+    id = CreateRandomString();
+}
+void Zone::Remove()
+{
+    isEnable = false;
+    RectangleDelete(0, "rec" + (string)id);
 }
 bool Zone::IsCrossed(double candleHigh, double candleLow)
 {
     if (isBullish)
     {
-        if (candleLow < low)
+        if (candleLow < low && candleHigh >= low)
         {
             return true;
         }
     }
     else
     {
-        if (candleHigh > high)
+        if (candleHigh > high && candleLow <= high)
         {
             return true;
         }
@@ -70,13 +81,18 @@ void Zone::DrawZone(datetime time1, datetime time2)
             clr = clrYellowGreen;
         }
     }
-  //  Print("in draw zone => time1:",time1," and its price:",high,"  time2:",time2,"  and its price:",low);
-    RectangleCreate(0, "rec" + (string)NameCounter, 0, time1, high, time2, low, clr);
+    datetime endDate = time2;
+    if (time2 == 0)
+    {
+        // endDate = myTime(0) + (zoneRectangleWidth - extCandle.index) * Period() * 60;
+        endDate = myTime(0) + (Period() * 10);
+    }
+    //  Print("in draw zone => time1:",time1," and its price:",high,"  time2:",time2,"  and its price:",low);
+    RectangleCreate(0, "rec" + (string)id, 0, time1, high, endDate, low, clr);
     NameCounter++;
 }
 Zone::~Zone()
 {
-   
 }
 
 class ZoneArr
@@ -151,13 +167,11 @@ void ZoneArr::RemoveZone(Zone &zone)
     {
         if (arr[i].time == zone.time)
         {
-            arr[i].isEnable = false;
+            arr[i].Remove();
             break;
         }
     }
 }
 ZoneArr::~ZoneArr()
 {
-    
-    
 }

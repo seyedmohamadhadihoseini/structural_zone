@@ -27,7 +27,7 @@ input ENUM_TIMEFRAMES lowTimeframe = PERIOD_M5;
 input double trade_volume = 0.01;
 input int trade_tp_pip = 10;
 ZoneArr AllZones;
-
+int FirstZoneId = 0;
 int zoneInInitCount = 0;
 int OnInit()
 {

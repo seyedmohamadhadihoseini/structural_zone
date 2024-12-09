@@ -44,7 +44,7 @@ void HandleNewZones(int shift)
                 // Print("high:", bar.high, " zone high:", zone.high, " zone low:", zone.low);
                 zones[j].DrawZone(zones[j].time, bar.time);
                 AllZones.Set(zones[j]);
-                zone.isEnable = false;
+                zone.Remove();
                 AllZones.RemoveZone(zone);
             }
             // remove old + find new zones + display zones + add new zones to array
@@ -128,7 +128,7 @@ void RemoveCrossedZone(bool isMainZone)
         {
             if (zone.isMainZone == isMainZone)
             {
-                AllZones.arr[i].isEnable = false;
+                AllZones.arr[i].Remove();
             }
         }
     }
